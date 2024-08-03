@@ -1,0 +1,5 @@
+openai==1.7.2
+streamlit==1.35.0
+streamlit-antd-components==0.3.2
+streamlit-javascript==0.1.5
+streamlit-extras==0.4.2
