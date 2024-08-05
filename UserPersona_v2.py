@@ -116,7 +116,8 @@ def check_input_lengths(str_input, initial_state, max_length_chars = 250):
 # USER INPUT ON TOP:
 st.header("User Persona Generator")
 st.write(" ")
-st.markdown(""":blue[This AI-template will make a User Persona for your product, as well as other User Persona variations.]""")
+st.markdown(""":blue[This basic AI-template will make a User Persona for your product, as well as other User Persona variations.]""")
+st.caption("Free demo, and open-source code!")
 
 sac.divider(label="Define Project", icon="card-list", align='center', color='gray') # icon list https://icons.getbootstrap.com/
 initial_user_input = st.text_area("What is the project/product you are working on, in roughly 1-line: [less than 250 characters]", 
@@ -322,7 +323,7 @@ st.session_state['userP_rate_limit_ctr'] = temp_error + st.session_state['userP_
 
 st.subheader("USAGE SUMMARY:")
 st.write(f"Total # tokens:  {st.session_state['userP_total_tokens']}. Total cost: ${cost_so_far:.5f}. Total errors: {st.session_state['userP_rate_limit_ctr']}")
-st.markdown("""The code to product this is open-sourced on [Github](https://github.com/ZeevAbrams?tab=repositories)""")
+st.markdown("""The code to create this demo is open-sourced on [Github](https://github.com/ZeevAbrams?tab=repositories)""")
 st.markdown("""
 Created by [Iteraite](https://www.iteraite.com) | Contact: info@iteraite.com
 """)
