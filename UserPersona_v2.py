@@ -13,9 +13,11 @@ import streamlit_antd_components as sac  # to create fancier UI https://nicedoub
 # DEF SECTION:
 # find the key in the website: https://platform.openai.com/account/api-keys
 openai.api_key = st.secrets["OPENAI_KEY"]
-#os.getenv("OPENAI_API_KEY")
+### REPLACE THIS COMMENT WITH YOUR API KEY - SUCH AS: openai.api_key = "sk-12345...10"
+
+#os.getenv("OPENAI_API_KEY") # if you want to keep it here instead
 MODEL_TO_USE = "gpt-3.5-turbo"  # we'll use the CHEAPER version - it works pretty well. Replace it with higher-end models if needed
-COST_OF_MODEL = 0.002/1000  # for gpt 3.5 turbo https://openai.com/pricing This is OVERESTIMATING the price 
+COST_OF_MODEL = 0.002/1000  # for gpt 3.5 turbo https://openai.com/pricing This is OVERESTIMATING the price - price is cheaper for input tokens
 TIME_TO_SLEEP = 3  # seconds
 MAX_TRIES = 10  # putting a limit on the number of errors
 temp_error = 0  # global to be added
@@ -118,6 +120,7 @@ st.markdown(""":blue[This AI-template will make a User Persona for your product,
 
 sac.divider(label="Define Project", icon="card-list", align='center', color='gray') # icon list https://icons.getbootstrap.com/
 initial_user_input = st.text_area("What is the project/product you are working on, in roughly 1-line: [less than 250 characters]", 
+							value = str(st.session_state['userP_proj_1liner_input']),
 						  key='initial_input', height=80, max_chars=250)  # will reset
 
 # m = st.markdown("""
@@ -280,7 +283,7 @@ if st. session_state.userP_accepted_customers:
 		st.write(str(st.session_state['userP_soso_persona']))
 
 	with st.container(border=True):
-		st.subheader("A Hard Sell")
+		st.subheader("A Harder Sell")
 		st.write(str(st.session_state['userP_bad_persona']))
 
 
@@ -296,12 +299,12 @@ if st.session_state.finished_generating_personas:
 	text_file = "User Persona Variations\n\nThe following is from the Iteraite template for your project.\n \
 		\nContact info@iteraite.com for any questions and comments\n\n" + \
 		"\nYour project 1-liner was: " + str(st.session_state['userP_proj_1liner_input'] ) +\
-		"\nA short description of the Problem being solved was: " + str(st.session_state['userP_problem_description']) + \
+		"\n\nA short description of the Problem being solved was: " + str(st.session_state['userP_problem_description']) + \
 		"\nYour Target Customers for this product are: " + str(st.session_state['userP_target_customers']) +\
 		"\n\n" + \
-		"Personas:\nA good fit:\n" + str(st.session_state['userP_good_persona']) + \
-		"\n\nA little less likely:\n" + str(st.session_state['userP_soso_persona']) + \
-		"\n\nA hard sell:\n" + str(st.session_state['userP_bad_persona'])
+		"Personas:\nA Good Fit:\n" + str(st.session_state['userP_good_persona']) + \
+		"\n\nA Little Less Likely:\n" + str(st.session_state['userP_soso_persona']) + \
+		"\n\nA Harder Sell:\n" + str(st.session_state['userP_bad_persona'])
 	
 	
 	# give it a name with a timestamp:
@@ -319,9 +322,12 @@ st.session_state['userP_rate_limit_ctr'] = temp_error + st.session_state['userP_
 
 st.subheader("USAGE SUMMARY:")
 st.write(f"Total # tokens:  {st.session_state['userP_total_tokens']}. Total cost: ${cost_so_far:.5f}. Total errors: {st.session_state['userP_rate_limit_ctr']}")
-st.markdown("""[This is open-sourced on Github](https://github.com/ZeevAbrams?tab=repositories)""")
+st.markdown("""The code to product this is open-sourced on [Github](https://github.com/ZeevAbrams?tab=repositories)""")
 st.markdown("""
 Created by [Iteraite](https://www.iteraite.com) | Contact: info@iteraite.com
 """)
+st.markdown(""":orange[To make this code/demo completely free, we have no tracking whatsoever - \
+		   but would greatly appreciate it if you pinged us to tell us that you liked it, or try out our more complete] \
+			[application](https://iteraite-applet-full-version.streamlit.app/)""")
 
 	
