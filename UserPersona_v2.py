@@ -48,7 +48,7 @@ st.markdown(
 if 'pressed_first_description' not in st.session_state:
 	# setting all the saved states to zero
 	st.session_state.pressed_first_description = False
-	st.session_state['userP_proj_1liner_input'] = []
+	st.session_state['userP_proj_1liner_input'] = ""
 	st.session_state['userP_problem_description'] = []
 	st.session_state.userP_accepted_problem = False
 	st.session_state['userP_target_customers'] = ""
