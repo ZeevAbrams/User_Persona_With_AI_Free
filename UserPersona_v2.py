@@ -119,6 +119,7 @@ st.write(" ")
 st.markdown(""":blue[This basic AI-template will make a User Persona for your product, as well as other User Persona variations.]""")
 st.caption("Free demo, and open-source code!")
 
+
 sac.divider(label="Define Project", icon="card-list", align='center', color='gray') # icon list https://icons.getbootstrap.com/
 initial_user_input = st.text_area("What is the project/product you are working on, in roughly 1-line: [less than 250 characters]", 
 							value = str(st.session_state['userP_proj_1liner_input']),
@@ -193,11 +194,11 @@ if st.session_state.userP_accepted_problem:
 	sac.divider(label="Target Customers", icon="people", align='center', color='gray') 
 
 	st.write("List the Target Customers for your product")
-	customer_input = st.text_input("Write up to 3 customers separated by commas", key='customer_input', max_chars=100
+	customer_input = st.text_input("Write up to 3 customers separated by commas", key='customer_input', max_chars=250
 								, help="Example: Remote teams, freelancers, small businesses"
 								, value=str(st.session_state['userP_target_customers']))
-	accept_customers = st.button(label="Continue with these customers", key = "b_customers", help="Re-click to start again from here")
-	accept_customers = check_input_lengths(customer_input, accept_customers, max_length_chars=100)
+	accept_customers = st.button(label="Continue with these customers", key = "b_customers", help="Re-click to regenerate personas")
+	accept_customers = check_input_lengths(customer_input, accept_customers, max_length_chars=250)
 	
 	if accept_customers:
 		st.session_state.userP_accepted_customers = True
@@ -225,7 +226,7 @@ if st. session_state.userP_accepted_customers:
 				"Write a User Persona for this product.\n"
 			
 			instruction_prompt_for_each = "\nFor the persona, make sure to list: \
-				1. Their name 2. Overview, 3. Goals, 4. Behaviors, 5. Pains and 6. Needs \
+				Their name\n 1. Overview\n 2. Goals\n 3. Behaviors\n 4. Pains\n 5. Needs \
 				\n\nFor each of these 5 categories, write 3 short 1-line bullets."
 
 			### Normal Persona
@@ -257,7 +258,7 @@ if st. session_state.userP_accepted_customers:
 
 			### A very skeptical customer
 			bad_persona_prompt = initial_context_for_each + \
-				"Write a User Persona for this product. Assume the persona is one of the listed target customers mentioned above, \
+				"Write a User Persona for this product. Assume the Persona is one of the listed target customers mentioned above, \
 				however, assume that it is someone who is not at all likely to like your product, as they are skeptical, \
 				and it doesn't fit their needs and pains." 
 			# for somewhat better results, you can add the previous persona to the context:
@@ -275,17 +276,19 @@ if st. session_state.userP_accepted_customers:
 			st.session_state.finished_generating_personas = True
 
 	# now print out the results:
-	with st.container(border=True):  # puts it into a little box with a frame
-		st.subheader("A Good Fit")
-		st.write(str(st.session_state['userP_good_persona']))
-	
-	with st.container(border=True):
-		st.subheader("A Little Less Likely")
-		st.write(str(st.session_state['userP_soso_persona']))
-
-	with st.container(border=True):
-		st.subheader("A Harder Sell")
-		st.write(str(st.session_state['userP_bad_persona']))
+	c1, c2, c3 = st.columns(3)
+	with c1:
+		with st.container(border=True):  # puts it into a little box with a frame
+			st.subheader("A Good Fit")
+			st.write(str(st.session_state['userP_good_persona']))
+	with c2:
+		with st.container(border=True):
+			st.subheader("A Little Less Likely")
+			st.write(str(st.session_state['userP_soso_persona']))
+	with c3:
+		with st.container(border=True):
+			st.subheader("A Harder Sell")
+			st.write(str(st.session_state['userP_bad_persona']))
 
 
 ### Save to text
